@@ -1,0 +1,53 @@
+body{
+    background-color: lightgray;
+    
+}
+
+.headerContainer {
+    background-color: white;
+    padding: 20px;
+
+}
+
+.fs-cont {
+    background-color: white;
+    border: 1px solid black;
+}
+h6 {
+    line-height: 1;
+    margin: 0;
+    
+}
+/* We will use these 3 following classes to display flight status. Can be changed in javascript  */
+.ontime {
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.delayed {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.canceled {
+    background-color: blue;
+    color: white;
+    font-size: 16px;
+    font-weight: bolder;
+}
+p {
+
+}
+/* The span classes will have data populated via api */
+span {
+    color: purple;
+}
+
+.flightText{
+margin: 0px;
+padding: 0px;
+line-height: 1.25;
+font-size: 12px;
+}
