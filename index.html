@@ -8,173 +8,179 @@
     <title>JFK Travel Tracker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
 
 <body>
-
-
-    <div class="container-fluid">
-        <!-- <nav class="row"> -->
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">
-                <img src="./assets/images/FLTCK Travel Tracker-1 (2).png" width="200" height="250" alt="">
+<!-- header container holding logo title and weather  -->
+<header class="container headerContainer d-flex">
+    <div class="row">
+        <!-- logo and header  -->
+        <div class="container d-flex bg-white col-8 align-items-center">
+            <a class="" href="#">
+                <img src="./assets/images/FLTCK Travel Tracker-1 (2).png" width="200" height="200" alt="">
             </a>
-
-            <div class="col-6 ">
-                <h1>JFK International Airport(New York)-JFK
-                    Current Weather</h1>
-            </div>
-
-
-            <div class="col bg-secondary">
-
-                <div class="container">
-                    <div class="row no-gutters overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                          <h5>Wind Speed:</h5>
-                          <h5>Temp:</h5>
-                          <h5>Humidity</h5>
-                         
-                          <p>Brief Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi quia, blanditiis sed soluta quisquam veniam odio nobis rerum nesciunt?</p>
-                         
+            <h1>JFK International Airport(New York)-JFK Current Weather</h1>
+        </div>
+        <!-- weather container need to link to the api -->
+        <div class="container col-4 ">
+                <div id = "weatherContainer" class="container" >
+                    <div class="card mb-3" >
+                        <div class="row g-0">
+                          <div class="col-md-4">
+                            <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img" alt="Current Weather conditions icon">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5><span id = "WeatherTitleEl">[Day]</span></h4>
+                              <h5 class="card-title"><span id="dateWeather">[date]</span></h4>
+                              <hr>
+                              <h6>Temperature: <span id = "tempWeather">[temp]</span></h5>
+                              <h6>Humidity: <span id = "humidityWeather">[humidity]</span></h5>
+                              <h6>Wind Speed: <span id = "windWeather">[wind]</span></h5>
+                              <p class="card-text"><span id = "conditionsWeather"></span></p>
+                              <span class = "text-mute" id = timeWeather></span>
+                            </div>
                         </div>
-                        <div class="col-auto d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                 
-                        </div>
-                      </div>
-
                     </div>
+                </div>  
+        </div>
+    </div>
+</header>
+
+<div id="flightStatusContainer" class="fs-cont container d-flex">
+    <!--  -->
+    <!-- Departures Container -->
+    <!--  -->
+    <div id = departureContainer class="fs-cont container col-6 justify-content-center align-items-center d-flex flex-column">
+        <h6 class="flightsHeader">Departures</h6>
+        <!-- We will use javascript to populate these containers  -->
+
+        <!-- departures card 0  -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0">
+              <div class="col-md-9 flightInfoCustom ">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Destination: <span id="departureTitle0">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="departureFlightName0">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime0">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Est Time: <span id="departureEstTime0">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal0">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="departureGate0">[Gate #]</span></h6>
                 </div>
-            
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
+                <h6 id = 'departureStatus0' >[On Time]</h6>
+              </div>
+            </div>
+        </div>
+        <!-- departures card 1 -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0 flightCard">
+              <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Destination: <span id="departureTitle1">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="departureFlightName1">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime1">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Est Time: <span id="departureEstTime1">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal1">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="departureGate1">[Gate #]</span></h6>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center delayed">
+                <h6 id ="departureStatus1">[Delayed]</h6>
+              </div>
+            </div>
+        </div>
+        <!-- departures card 2 -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0 flightCard">
+              <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Destination: <span id="departureTitle2">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="departureFlightName2">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime2">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Est Time: <span id="departureEstTime2">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal2">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="departureGate2">[Gate #]</span></h6>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center canceled">
+                <h6 id ="departureStatus2">[Canceled]</h6>
+              </div>
+            </div>
+        </div>
 
-        </nav>
-        <!-- </nav> -->
-    
-
-    <div class="container-fluid">
-        
-<div class="row">
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-        <div class="col-md-6" style="background-color:gray; border: 1px solid"> 
-            <h3>"</h3>
-        </div>
-      
-        <div class="col-md-6" style="background-color: lightblue; border: 1px solid">
-           <h3>"</h3>
-        </div>
-    </div>
-        
-            
-            
-
-        </div>
-    
-
-
-
-
-
-
-    
-        
     </div>
 
+    <!--  -->
+    <!-- Arrivals Container  -->
+    <!--  -->
+    <div id = arrivalContainer class="fs-cont container col-6 justify-content-center align-items-center d-flex flex-column">
+        <h6 class="flightsHeader">Arrivals</h6>
+        <!-- We will use javascript to populate these containers  -->
+        <!-- Arrival card 0 -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0 flightCard">
+              <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Departed: <span id="arrivalTitle0">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName0">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Departed Time: <span id="arrivalSchTime0">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalEstTime0">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal0">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="arrivalGate0">[Gate #]</span></h6>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
+                <h6 id ="arrivalStatus0">[On Time]</h6>
+              </div>
+            </div>
+        </div>
+        <!-- Arrival card 1 -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0 flightCard">
+              <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Departed: <span id="arrivalTitle1">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName1">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Departed Time: <span id="arrivalSchTime1">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalEstTime1">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal1">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="arrivalGate1">[Gate #]</span></h6>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
+                <h6 id ="arrivalStatus1">[On Time]</h6>
+              </div>
+            </div>
+        </div>
+        <!-- Arrival card 2 -->
+        <div class="card flightCardCustom" style="width: 100%;">
+            <div class="row g-0 flightCard">
+              <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Departed: <span id="arrivalTitle2">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName2">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Departed Time: <span id="arrivalSchTime2">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalEstTime2">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal2">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="arrivalGate2">[Gate #]</span></h6>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
+                <h6 id ="arrivalStatus2">[On Time]</h6>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
-    <script src="./assets/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
