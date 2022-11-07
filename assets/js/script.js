@@ -51,5 +51,3 @@ $("#WeatherTitleEl").html(dayNow)
 //         </div>`)
 //     }
 // }
-
-
