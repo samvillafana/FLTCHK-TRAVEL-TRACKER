@@ -9,40 +9,53 @@ body{
 
 }
 
-.fs-cont {
-    background-color: white;
-    border: 1px solid black;
-}
 h6 {
     line-height: 1;
-    margin: 0;
-    
+    margin: 0;   
 }
+
 /* We will use these 3 following classes to display flight status. Can be changed in javascript  */
 .ontime {
-    background-color: green;
-    color: white;
+    border-radius: 0px 5px 5px 0px;
+    background: rgb(0, 137, 5);
     font-size: 16px;
     font-weight: bolder;
+    color: white;
 }
 .delayed {
-    background-color: red;
-    color: white;
+    border-radius: 0px 5px 5px 0px;
+    background: rgb(255,0,0);
     font-size: 16px;
     font-weight: bolder;
+    color: white;
 }
 .canceled {
-    background-color: blue;
-    color: white;
+    border-radius: 0px 5px 5px 0px;
+    background: rgb(21, 6, 240);
     font-size: 16px;
     font-weight: bolder;
+    color: white;
 }
-p {
 
-}
 /* The span classes will have data populated via api */
 span {
     color: purple;
+}
+#flightStatusContainer {
+    padding: 0px;
+    background-color: white;
+}
+.flightCardCustom{
+margin: 2px;
+box-shadow: 1px -1px 14px 0px rgba(0,0,0,0.75);
+} 
+.flightInfoCustom {
+    background-color: rgba(30, 255, 0, 0.049);
+}
+
+.row {
+margin-left: 0px;
+margin-right: 0px;
 }
 
 .flightText{
@@ -50,4 +63,9 @@ margin: 0px;
 padding: 0px;
 line-height: 1.25;
 font-size: 12px;
+}
+.flightsHeader {
+    font-size: 20px;
+    color: black;
+    margin: 5px;
 }
