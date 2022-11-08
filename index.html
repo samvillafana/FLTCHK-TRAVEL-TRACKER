@@ -57,24 +57,31 @@
         <h6 class="flightsHeader">Departures</h6>
         <!-- We will use javascript to populate these containers  -->
 
-        <!-- Sample html card for departures card  -->
+<!-- 
+////////////
+  Sample html for departures card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
+/////////////
+-->
+
         <!-- <div class="card flightCardCustom" style="width: 100%;">
-            <div class="row g-0">
-              <div class="col-md-9 flightInfoCustom ">
-                <div class="card-body">
-                    <h6 class="card-title flightText">Destination: <span id="departureTitle0">[Destination Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Flight: <span id="departureFlightName0">[Airline - Flight No]</span></h6>
-                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime0">[time/date]</span></h6>
-                    <h6 class="card-title flightText">Est Time: <span id="departureEstTime0">[estTime]</span></h6>
-                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal0">[Terminal]</span></h6>
-                    <h6 class="card-title flightText">Gate: <span id="departureGate0">[Gate #]</span></h6>
-                </div>
-              </div>
-              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
-                <h6 id = 'departureStatus0' >On Time</h6>
+          <div class="row g-0">
+            <div class="col-md-9 flightInfoCustom ">
+              <div class="card-body">
+                    <h6 class="card-title flightText">Destination: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="departureGate${i}">[Gate #]</span></h6>
+                    <h6 class="card-title flightText">Flight Duration: <span id="departureDuration${i}"></span></h6>
               </div>
             </div>
-        </div> -->
+            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                    <h6 id="departureStatus${i}">[On Time]</h6>
+            </div>
+          </div>
+      </div> -->
+
     </div>
 
     <!--  -->
@@ -83,24 +90,32 @@
     <div id = arrivalContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
         <h6 class="flightsHeader">Arrivals</h6>
         <!-- We will use javascript to populate these containers  -->
-        <!-- Arrival card 0 -->
+
+<!-- 
+////////////
+  Sample html for arrivals card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
+/////////////
+-->
         <!-- <div class="card flightCardCustom" style="width: 100%;">
-            <div class="row g-0 flightCard">
-              <div class="col-md-9 flightInfoCustom">
+          <div class="row g-0 flightCard">
+            <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
-                    <h6 class="card-title flightText">Departed: <span id="arrivalTitle0">[Departed From Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName0">[Airline - Flight No]</span></h6>
-                    <h6 class="card-title flightText">Departed Time: <span id="arrivalSchTime0">[time/date]</span></h6>
-                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalEstTime0">[estTime]</span></h6>
-                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal0">[Terminal]</span></h6>
-                    <h6 class="card-title flightText">Gate: <span id="arrivalGate0">[Gate #]</span></h6>
+                    <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="arrivalGate${i}">[Gate #]</span></h6>
+                    <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
                 </div>
-              </div>
-              <div class="col-md-3 d-flex align-items-center justify-content-center ontime">
-                <h6 id ="arrivalStatus0">On Time</h6>
-              </div>
             </div>
-        </div> -->
+            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
+            </div>
+          </div>
+      </div> -->
+
+
     </div>
 </div>
 

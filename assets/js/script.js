@@ -1,7 +1,7 @@
 // Global Variables ----------
 var dayNow = moment().format('dddd')
 var dateNow = moment().format('L')
-var numberOfFlights = 5
+var numberOfFlights = 20
 // Render Data and Time to Weather Card.
 $("#dateWeather").html(dateNow)
 $("#WeatherTitleEl").html(dayNow)
@@ -100,7 +100,8 @@ var requestWeather = {
 function renderFlightInfo() {
   for (i = 0; i <= numberOfFlights; i++) {
       //Render Departure Flights.
-      $('#departureContainer').append(`<div class="card flightCardCustom" style="width: 100%;">
+    $('#departureContainer').append(`
+      <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0">
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
@@ -116,9 +117,11 @@ function renderFlightInfo() {
             <div class="col-md-3 d-flex align-items-center justify-content-center">
                     <h6 id="departureStatus${i}">[On Time]</h6>
             </div>
-          </div>`)  
+          </div>
+      </div>`)  
       //Render Arriving Flights.
-      $('#arrivalContainer').append(`<div class="card flightCardCustom" style="width: 100%;">
+    $('#arrivalContainer').append(`
+      <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
@@ -134,7 +137,8 @@ function renderFlightInfo() {
             <div class="col-md-3 d-flex align-items-center justify-content-center">
                 <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
             </div>
-          </div>`)
+          </div>
+      </div>`)
   }
 }
 
