@@ -2,6 +2,7 @@
 var dayNow = moment().format('dddd')
 var dateNow = moment().format('L')
 var numberOfFlights = 20
+var selectedAirport = $(".form-select").val()
 // Render Data and Time to Weather Card.
 $("#dateWeather").html(dateNow)
 $("#WeatherTitleEl").html(dayNow)
@@ -19,9 +20,9 @@ $("#WeatherTitleEl").html(dayNow)
 // start of api calls
 
 // airlabs API variables
-const icao_code = "KJFK";
-const dep_icao = "KJFK";
-const arr_icao = "KJFK";
+let icao_code = selectedAirport;
+let dep_icao = selectedAirport;
+let arr_icao = selectedAirport;
 const AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
 const AIRLABS_AIRPORT_API_URL =
   "https://airlabs.co/api/v9/airports?icao_code=" +
@@ -98,6 +99,8 @@ var requestWeather = {
 
 // function to render flight cards
 function renderFlightInfo() {
+  $('#departureContainer').append(`<h6 class="flightsHeader">Departures</h6>`)
+  $('#arrivalContainer').append(`<h6 class="flightsHeader">Arrivals</h6>`)
   for (i = 0; i <= numberOfFlights; i++) {
       //Render Departure Flights.
     $('#departureContainer').append(`
@@ -105,7 +108,8 @@ function renderFlightInfo() {
           <div class="row g-0">
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
-                    <h6 class="card-title flightText">Destination: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
+                    <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
                     <h6 class="card-title flightText">Flight: <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
@@ -125,7 +129,8 @@ function renderFlightInfo() {
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
-                    <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Arrival: <span id="arrivalTo${i}"></span></h6>
+                    <h6 class="card-title flightText">Departure: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
                     <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
@@ -157,6 +162,7 @@ function getDepartures() {
       console.log(returnResults)
 
       for (var i = 0; i <= numberOfFlights; i++) {
+          $("#departureFrom" + (i)).html(selectedAirport.slice(1))
           $("#departureTitle" + (i)).html(returnResults.response[i].arr_iata)
           $("#departureFlightName" + (i)).html(returnResults.response[i].flight_iata)
           $("#departureSchTime" + (i)).html(returnResults.response[i].dep_time)
@@ -189,6 +195,7 @@ function getArrivals() {
     .then(function (returnResults) {
       console.log(returnResults)
       for (var i = 0; i <= numberOfFlights; i++) {
+        $("#arrivalTo" + (i)).html(selectedAirport.slice(1))
         $("#arrivalTitle" + (i)).html(returnResults.response[i].dep_iata)
         $("#arrivalFlightName" + (i)).html(returnResults.response[i].flight_iata)
         $("#arrivalDepartedTime" + (i)).html(returnResults.response[i].dep_time)
@@ -228,10 +235,15 @@ function getWeather() {
     })
 }
 
-
-renderFlightInfo()
-getWeather()
-getDepartures()
-getArrivals()
-console.log(AIRLABS_SCHEDULES_ARR_API_URL)
+function init() {
+  $('#arrivalContainer').html("")
+  $('#departureContainer').html("")
+  renderFlightInfo()
+  getDepartures()
+  getArrivals()
+  getWeather()
+}
+$("#btnInit").click(function () {
+init()
+});
 
