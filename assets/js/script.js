@@ -114,7 +114,7 @@ function renderFlightInfo() {
                     <h6 class="card-title flightText">Flight Duration: <span id="departureDuration${i}"></span></h6>
               </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <div id = "departureDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
                     <h6 id="departureStatus${i}">[On Time]</h6>
             </div>
           </div>
@@ -134,7 +134,7 @@ function renderFlightInfo() {
                     <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
                 </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <div id = "arrivalDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
                 <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
             </div>
           </div>
@@ -166,9 +166,11 @@ function getDepartures() {
           $("#departureDuration" + (i)).html(returnResults.response[i].duration + " Minutes")
         //this logic is not working
           if (returnResults.response[i].delayed === null) {
-            $("#departureStatus"+(i)).html("On Time").attr("class","ontime")
+            $("#departureStatus" + (i)).html("On Time").attr("class", "ontimeText")
+            $("#departureDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center ontimeCont")
           } else {
-            $("#departureStatus"+(i)).html("Delayed by: " + returnResults.response[i].delayed + " Mins").attr("class", "delayed")
+            $("#departureStatus" + (i)).html("Delayed by: " + returnResults.response[i].delayed + " Mins").attr("class", "delayedText")
+            $("#departureDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center delayedCont")
           }
         } 
     })
@@ -195,9 +197,12 @@ function getArrivals() {
         $("#arrivalGate" + (i)).html(returnResults.response[i].arr_gate)
         $("#arrivalFlightStatus" + (i)).html(returnResults.response[i].status)
         if (returnResults.response[i].arr_delayed === null) {
-          $("#arrivalDelayStatus" + (i)).html("On Time").attr("class", "ontime")
+          $("#arrivalDelayStatus" + (i)).html("On Time").attr("class", "ontimeText")
+          $("#arrivalDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center ontimeCont")
+
         } else {
-          $("#arrivalDelayStatus" + (i)).html("Delayed by: " + returnResults.response[i].dep_delayed + " Mins").attr("class", "delayed")
+          $("#arrivalDelayStatus" + (i)).html("Delayed by: " + returnResults.response[i].dep_delayed + " Mins").attr("class", "delayedText")
+          $("#arrivalDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center delayedCont")
         }
       }
     })

@@ -11,30 +11,7 @@ h6 {
     margin: 0;
 }
 
-/* We will use these 3 following classes to display flight status. Can be changed in javascript  */
-.ontime {
-    border-radius: 0px 5px 5px 0px;
-    background: rgb(0, 137, 5);
-    font-size: 16px;
-    font-weight: bolder;
-    color: white;
-}
 
-.delayed {
-    border-radius: 0px 5px 5px 0px;
-    background: #fff;
-    font-size: 16px;
-    font-weight: bolder;
-    color: white;
-}
-
-.canceled {
-    border-radius: 0px 5px 5px 0px;
-    background: #fff;
-    font-size: 16px;
-    font-weight: bolder;
-    color: white;
-}
 
 /* The span classes will have data populated via api */
 span {
@@ -81,21 +58,22 @@ span {
 border-left: 0px !important;
 }
 
-.ontime {
-    background-color: #fff;
-
-}
-
-.ontime>h6 {
-    color: rgb(0, 137, 5);
-
-}
-
-.delayed>h6 {
+/* We will use these 2 following classes to display flight status. Can be changed in javascript  */
+.ontimeText {
+    font-size: 16px;
+    font-weight: bolder;
     color: blue;
 }
 
-.canceled>h6 {
+.delayedText {
+    font-size: 16px;
+    font-weight: bolder;
+    color: white;
+}
+.ontimeCont {
+background-color: green ;
+}
 
-    color: red;
+.delayedCont {
+background-color: red;
 }
