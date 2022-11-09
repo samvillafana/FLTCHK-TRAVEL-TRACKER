@@ -10,7 +10,15 @@ h6 {
     line-height: 1;
     margin: 0;
 }
+.button:hover {
+    background-color: forestgreen;
+    color: #fff;
+    text-decoration: underline;
+    
+    
 
+    
+}
 
 
 /* The span classes will have data populated via api */
@@ -62,7 +70,7 @@ border-left: 0px !important;
 .ontimeText {
     font-size: 16px;
     font-weight: bolder;
-    color: blue;
+    color: #fff;
 }
 
 .delayedText {
