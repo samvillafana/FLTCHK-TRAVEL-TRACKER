@@ -5,84 +5,148 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JFK Travel Tracker</title>
+    <title>FLTCKR Status Checker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://kit.fontawesome.com/3b4616655d.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-<!-- header container holding logo title and weather  -->
-<header class="container headerContainer d-flex">
-    <div class="row">
-        <!-- logo and header  -->
-        <div class="container d-flex bg-white col-7 align-items-center">
-            <a class="" href="#">
-                <img src="./assets/images/FLTCK Travel Tracker-1 (2).png" width="200" height="200" alt="">
-            </a>
-            <h3>JFK International Airport(New York)-JFK Current Weather</h3>
-        </div>
-        <!-- weather container need to link to the api -->
-        <div class="container col-5 ">
-                <div id = "weatherContainer" class="container" >
-                    <div class="card mb-3" >
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img" alt="Current Weather conditions icon">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5><span id = "WeatherTitleEl">[Day]</span></h4>
-                              <h5 class="card-title"><span id="dateWeather">[date]</span></h4>
-                              <hr>
-                              <h6>Temperature: <span id = "tempWeather">[temp]</span></h5>
-                              <h6>Humidity: <span id = "humidityWeather">[humidity]</span></h5>
-                              <h6>Wind Speed: <span id = "windWeather">[wind]</span></h5>
-                              <p class="card-text">Conditions: <span id = "conditionsWeather"></span></p>
-                              <span class = "text-mute" id = timeWeather></span>
-                            </div>
+    <header class="container headerContainer d-flex">
+    <nav class="navbar bg-dark container rounded">
+        <div class="row">
+    
+            <div class="col-sm-6 col-12">
+            <img class="w-75 h-75 img-fluid d-block" src="./assets/images/FLTCKR Tracker Transparent Background.png" width="200" height="200" alt="Picture of FLTCKR logo"/>  
+            
+           
+            </div>
+        <div id="weatherContainer" class="col-sm-6 col-12">
+            <h1 class="">Status Checker and Weather Application</h1>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img"
+                            alt="Current Weather conditions icon">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h6><span id="WeatherTitleEl">[Day]</span></h6>
+                            <h6 class="card-title"><span id="dateWeather">[date]</span></h6>
+                            <hr>
+                            <h6><i class="fa-solid fa-thermometer pr-2"></i>Temperature: <span id="tempWeather">[temp]</span></h6>
+                            <h6><i class="fa-solid fa-water pr-2"></i>Humidity: <span id="humidityWeather">[humidity]</span></h6>
+                        
+                            <h6><i class="fa-solid fa-wind pr-2"></i>Wind Speed: <span id="windWeather">[wind]</span></h6>
+                            <p class="card-text">Conditions: <span id="conditionsWeather"></span></p>
+                            <span class="text-mute" id="timeWeather"></span>
                         </div>
                     </div>
-                </div>  
-        </div>
+                </div>
+            </div>
+       </div> 
     </div>
+    </nav>
 </header>
+    <!-- header container holding logo title and weather  -->
 
-<div class="container">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Select An Airport</option>
-      <option value="1" data-icao ="KJFK">(<span id ="airportID0">JFK</span>) John F. Kennedy International Airport, New York, New York </option>
-      <option value="2" data-icao ="KATL">(<span id ="airportID1">ATL</span>) Hartsfield-Jackson Atlanta International Airport, Atlanta, Georgia</option>
-      <option value="1" data-icao ="KLAX">(<span id ="airportID2">LAX</span>) Los Angeles International Airport, Los Angeles California</option>
-      <option value="2" data-icao ="KORD">(<span id ="airportID3">ORD </span>) O'Hare International Airport, Chicago, Illinois</option>
-      <option value="1" data-icao ="KDFW">(<span id ="airportID4">DFW </span>) Dallas/Fort Worth International Airport, Dallas, Texas</option>
-      <option value="1" data-icao ="KDEN">(<span id ="airportID5">DEN</span>) Denver International Airport, Denver, Colorado</option>
-      <option value="2" data-icao ="KSFO">(<span id ="airportID6">SFO</span>) San Francisco International Airport, San Franciso, California</option>
-      <option value="1" data-icao ="KLAS">(<span id ="airportID7">LAS</span>) McCarran International Airport, Las Vegas, Nevada</option>
-      <option value="2" data-icao ="KSEA">(<span id ="airportID8">SEA </span>) Seattle-Tacoma International Airport, Seattle, Washington</option>
-      <option value="1" data-icao ="KCLT">(<span id ="airportID9">CLT</span>) Charlotte Douglas International Airport, Charlotte, North Carolina</option>
-    </select>
-  
-    <button id="btnInit" type="button" button class="btn btn-light">Let's Go!</button>
-    </div>
-  
- 
-<div id="flightStatusContainer" class="fs-cont container d-flex">
-    <!--  -->
-    <!-- Departures Container -->
-    <!--  -->
-    <div id = departureContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
-        <h6 class="flightsHeader">Departures</h6>
-        <!-- We will use javascript to populate these containers  -->
+    <!-- <header class="container headerContainer d-flex">
+    
+    <div class="row">
+        <-- logo and header  -->
+    <!-- <div class="container d-flex bg-white col-7 align-items-center ms-auto">
+            <a class="" href="">
+                <img src="./assets/images/FLTCKR Logo wo header.png" width="150" height="150" alt="">
+            </a>
+            <h1 class="">Status Checker and Weather Application</h1>
+        -->
 
-<!-- 
+    <!-- </div> -->
+
+
+    <!-- weather container need to link to the api -->
+    <!-- <div class="container col-5 ms-auto">
+        <div id="weatherContainer" class="container">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img"
+                            alt="Current Weather conditions icon">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h6><span id="WeatherTitleEl">[Day]</span></h6>
+                            <h6 class="card-title"><span id="dateWeather">[date]</span></h6>
+                            <hr>
+                            <h6><i class="fa-solid fa-thermometer"></i>Temperature: <span id="tempWeather">[temp]</span></h6>
+                            <h6>Humidity: <span id="humidityWeather">[humidity]</span></h6>
+                        
+                            <h6><i class="fa-solid fa-wind"></i>Wind Speed: <span id="windWeather">[wind]</span></h6>
+                            <p class="card-text">Conditions: <span id="conditionsWeather"></span></p>
+                            <span class="text-mute" id="timeWeather"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div> -->
+    
+        <!-- </header> -->
+
+        <div class="container">
+            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button id="btnInit" type="button" button class="btn btn-dark">Let's Go!</button>
+                </div>
+            <select class="custom-select rounded" aria-label="Default select example">
+                <option selected>Select An Airport</option>
+                <option value="1" data-icao="KJFK">(<span id="airportID0">JFK</span>) John F. Kennedy International
+                    Airport, New York, New York </option>
+                <option value="2" data-icao="KATL">(<span id="airportID1">ATL</span>) Hartsfield-Jackson Atlanta
+                    International Airport, Atlanta, Georgia</option>
+                <option value="1" data-icao="KLAX">(<span id="airportID2">LAX</span>) Los Angeles International Airport,
+                    Los Angeles California</option>
+                <option value="2" data-icao="KORD">(<span id="airportID3">ORD </span>) O'Hare International Airport,
+                    Chicago, Illinois</option>
+                <option value="1" data-icao="KDFW">(<span id="airportID4">DFW </span>) Dallas/Fort Worth International
+                    Airport, Dallas, Texas</option>
+                <option value="1" data-icao="KDEN">(<span id="airportID5">DEN</span>) Denver International Airport,
+                    Denver, Colorado</option>
+                <option value="2" data-icao="KSFO">(<span id="airportID6">SFO</span>) San Francisco International
+                    Airport, San Franciso, California</option>
+                <option value="1" data-icao="KLAS">(<span id="airportID7">LAS</span>) McCarran International Airport,
+                    Las Vegas, Nevada</option>
+                <option value="2" data-icao="KSEA">(<span id="airportID8">SEA </span>) Seattle-Tacoma International
+                    Airport, Seattle, Washington</option>
+                <option value="1" data-icao="KCLT">(<span id="airportID9">CLT</span>) Charlotte Douglas International
+                    Airport, Charlotte, North Carolina</option>
+            </select>
+</div>
+          <!-- <div class="input-group-prepend"> -->
+            <!-- <button id="btnInit" type="button" button class="btn btn-dark">Let's Go!</button> -->
+        <!-- </div>
+        </div> -->
+        <!-- </div> -->
+
+
+        <div id="flightStatusContainer" class="fs-cont container d-flex">
+            <!--  -->
+            <!-- Departures Container -->
+            <!--  -->
+            <div id=departureContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
+                <h6 class="flightsHeader">Departures</h6>
+                <!-- We will use javascript to populate these containers  -->
+
+                <!-- 
 ////////////
   Sample html for departures card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
 /////////////
 -->
 
-        <!-- <div class="card flightCardCustom" style="width: 100%;">
+                <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0">
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
@@ -99,23 +163,23 @@
                     <h6 id="departureStatus${i}">[On Time]</h6>
             </div>
           </div>
-      </div> -->
+      </div> 
 
-    </div>
+            </div>
 
-    <!--  -->
-    <!-- Arrivals Container  -->
-    <!--  -->
-    <div id = arrivalContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
-        <h6 class="flightsHeader">Arrivals</h6>
-        <!-- We will use javascript to populate these containers  -->
+            <!--  -->
+            <!-- Arrivals Container  -->
+            <!--  -->
+            <div id=arrivalContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
+                <h6 class="flightsHeader">Arrivals</h6>
+                <!-- We will use javascript to populate these containers  -->
 
-<!-- 
+                <!-- 
 ////////////
   Sample html for arrivals card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
 /////////////
 -->
-        <!-- <div class="card flightCardCustom" style="width: 100%;">
+                <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
@@ -132,16 +196,22 @@
                 <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
             </div>
           </div>
-      </div> -->
+      </div> 
 
 
-    </div>
-</div>
+            </div>
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+            integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+        <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
