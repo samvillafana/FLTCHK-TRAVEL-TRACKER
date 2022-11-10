@@ -2,106 +2,74 @@
 var dayNow = moment().format('dddd')
 var dateNow = moment().format('L')
 var numberOfFlights = 20
-var selectedAirport = $(".form-select").val()
-// Render Data and Time to Weather Card.
-$("#dateWeather").html(dateNow)
-$("#WeatherTitleEl").html(dayNow)
+var selectedAirport = $("#airportSelectForm option:selected").val()
+var airportFullName = $("#airportSelectForm option:selected").text()
 
-// 
-
-// Global Variables ----------
+// Render day of the week to weather card 
 var dayNow = moment().format('dddd')
-var dateNow = moment().format('L')
-
-// Render Data and Time to Weather Card.
-$("#dateWeather").html(dateNow)
 $("#WeatherTitleEl").html(dayNow)
 
-// start of api calls
+// weather API Variables
+var localWeatherJSON = localStorage.getItem("coordinates");
+var localWeather = JSON.parse(localWeatherJSON);
+let WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
+let WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
 // airlabs API variables
 let icao_code = selectedAirport;
 let dep_icao = selectedAirport;
 let arr_icao = selectedAirport;
-const AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
-const AIRLABS_AIRPORT_API_URL =
+
+let AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
+let AIRLABS_AIRPORT_API_URL =
   "https://airlabs.co/api/v9/airports?icao_code=" +
   icao_code +
   "&api_key=" +
   AIRLABS_API_KEY;
-const AIRLABS_SCHEDULES_DEP_API_URL =
+let AIRLABS_SCHEDULES_DEP_API_URL =
   "https://airlabs.co/api/v9/schedules?dep_icao=" +
   dep_icao +
   "&api_key=" +
   AIRLABS_API_KEY;
-const AIRLABS_SCHEDULES_ARR_API_URL =
+let AIRLABS_SCHEDULES_ARR_API_URL =
   "https://airlabs.co/api/v9/schedules?arr_icao=" +
   arr_icao +
   "&api_key=" +
   AIRLABS_API_KEY;
 
-// API call to pull back airpport information
-var requestAirportInfo = {
-  method: "GET",
-  redirect: "follow",
-};
 
 var airportData;
 
-fetch(AIRLABS_AIRPORT_API_URL, requestAirportInfo)
-  .then((response) => response.json())
-  .then((data) => {
-    airportData = data;
-  })
-  .then(() => {
-    console.log(airportData);
-    var coordinates = JSON.stringify({
-        lat: airportData.response[0].lat,
-        lng: airportData.response[0].lng,
+function getAirportInfo() {
+  fetch(AIRLABS_AIRPORT_API_URL)
+    .then(function (response) {
+      if (!response.ok) {
+        console.error("")
+        throw response.json();
+      }
+      return response.json();
     })
-    localStorage.setItem("coordinates",coordinates);
-  })
-  .catch((error) => console.log("error", error));
+    
+    .then(function (returnResults) {
+      console.log(returnResults)
+      var coordinates = JSON.stringify({
+        lat: returnResults.response[0].lat,
+        lng: returnResults.response[0].lng,
+      })
+        localStorage.setItem("coordinates",coordinates)
+    })
+  
+}
 
-
-// API call to pull back all departures at JFK for current day +1
-var requestDepartures = {
-  method: "GET",
-  redirect: "follow",
-};
-
-fetch(AIRLABS_SCHEDULES_DEP_API_URL, requestDepartures)
-  .then((response) => response.json())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-
-//   API call to pull back all arrivals at JFK for current day +1
-var requestArrivals = {
-  method: "GET",
-  redirect: "follow",
-};
-
-fetch(AIRLABS_SCHEDULES_ARR_API_URL, requestArrivals)
-  .then((response) => response.json())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
 
 // API call to pull back weather information; lat,long stored in local store.
-var localWeatherJSON = localStorage.getItem("coordinates");
-var localWeather = JSON.parse(localWeatherJSON);
-const WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
-const WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
-var requestWeather = {
-  method: 'GET',
-  redirect: 'follow',
-};
 
 // function to render flight cards
 function renderFlightInfo() {
   $('#departureContainer').append(`<h6 class="flightsHeader">Departures</h6>`)
   $('#arrivalContainer').append(`<h6 class="flightsHeader">Arrivals</h6>`)
-  for (i = 0; i <= numberOfFlights; i++) {
+  for (var i = 0; i <= numberOfFlights; i++) {
       //Render Departure Flights.
     $('#departureContainer').append(`
       <div class="card flightCardCustom" style="width: 100%;">
@@ -170,7 +138,6 @@ function getDepartures() {
           $("#departureTerminal" + (i)).html(returnResults.response[i].dep_terminal)
           $("#departureGate" + (i)).html(returnResults.response[i].dep_gate)
           $("#departureDuration" + (i)).html(returnResults.response[i].duration + " Minutes")
-        //this logic is not working
           if (returnResults.response[i].delayed === null) {
             $("#departureStatus" + (i)).html("On Time").attr("class", "ontimeText")
             $("#departureDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center ontimeCont")
@@ -216,6 +183,7 @@ function getArrivals() {
 }
 //Function to render the weather data to the page. 
 function getWeather() {
+
   fetch(WEATHER_API_URL)
     .then(function (response) {
       if (!response.ok) {
@@ -238,12 +206,42 @@ function getWeather() {
 function init() {
   $('#arrivalContainer').html("")
   $('#departureContainer').html("")
+  console.log(selectedAirport)
+  console.log(airportFullName)
+  getAirportInfo()
   renderFlightInfo()
   getDepartures()
   getArrivals()
   getWeather()
 }
+
 $("#btnInit").click(function () {
-init()
+  selectedAirport = $("#airportSelectForm option:selected").val()
+  airportFullName = $("#airportSelectForm option:selected").text()
+  icao_code = selectedAirport
+  dep_icao = selectedAirport
+  arr_icao = selectedAirport
+  let AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
+AIRLABS_AIRPORT_API_URL =
+  "https://airlabs.co/api/v9/airports?icao_code=" +
+  icao_code +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+AIRLABS_SCHEDULES_DEP_API_URL =
+  "https://airlabs.co/api/v9/schedules?dep_icao=" +
+  dep_icao +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+AIRLABS_SCHEDULES_ARR_API_URL =
+  "https://airlabs.co/api/v9/schedules?arr_icao=" +
+  arr_icao +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+localWeatherJSON = localStorage.getItem("coordinates");
+localWeather = JSON.parse(localWeatherJSON);
+WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
+WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
+  
+  init()
 });
 
