@@ -2,110 +2,82 @@
 var dayNow = moment().format('dddd')
 var dateNow = moment().format('L')
 var numberOfFlights = 20
-// Render Data and Time to Weather Card.
-$("#dateWeather").html(dateNow)
-$("#WeatherTitleEl").html(dayNow)
+var selectedAirport = $("#airportSelectForm option:selected").val()
+var airportFullName = $("#airportSelectForm option:selected").text()
 
-// 
-
-// Global Variables ----------
+// Render day of the week to weather card 
 var dayNow = moment().format('dddd')
-var dateNow = moment().format('L')
-
-// Render Data and Time to Weather Card.
-$("#dateWeather").html(dateNow)
 $("#WeatherTitleEl").html(dayNow)
 
-// start of api calls
+// weather API Variables
+var localWeatherJSON = localStorage.getItem("coordinates");
+var localWeather = JSON.parse(localWeatherJSON);
+let WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
+let WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
 // airlabs API variables
-const icao_code = "KJFK";
-const dep_icao = "KJFK";
-const arr_icao = "KJFK";
-const AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
-const AIRLABS_AIRPORT_API_URL =
+let icao_code = selectedAirport;
+let dep_icao = selectedAirport;
+let arr_icao = selectedAirport;
+
+let AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
+let AIRLABS_AIRPORT_API_URL =
   "https://airlabs.co/api/v9/airports?icao_code=" +
   icao_code +
   "&api_key=" +
   AIRLABS_API_KEY;
-const AIRLABS_SCHEDULES_DEP_API_URL =
+let AIRLABS_SCHEDULES_DEP_API_URL =
   "https://airlabs.co/api/v9/schedules?dep_icao=" +
   dep_icao +
   "&api_key=" +
   AIRLABS_API_KEY;
-const AIRLABS_SCHEDULES_ARR_API_URL =
+let AIRLABS_SCHEDULES_ARR_API_URL =
   "https://airlabs.co/api/v9/schedules?arr_icao=" +
   arr_icao +
   "&api_key=" +
   AIRLABS_API_KEY;
 
-// API call to pull back airpport information
-var requestAirportInfo = {
-  method: "GET",
-  redirect: "follow",
-};
 
 var airportData;
 
-fetch(AIRLABS_AIRPORT_API_URL, requestAirportInfo)
-  .then((response) => response.json())
-  .then((data) => {
-    airportData = data;
-  })
-  .then(() => {
-    console.log(airportData);
-    var coordinates = JSON.stringify({
-        lat: airportData.response[0].lat,
-        lng: airportData.response[0].lng,
+function getAirportInfo() {
+  fetch(AIRLABS_AIRPORT_API_URL)
+    .then(function (response) {
+      if (!response.ok) {
+        console.error("")
+        throw response.json();
+      }
+      return response.json();
     })
-    localStorage.setItem("coordinates",coordinates);
-  })
-  .catch((error) => console.log("error", error));
+    
+    .then(function (returnResults) {
+      console.log(returnResults)
+      var coordinates = JSON.stringify({
+        lat: returnResults.response[0].lat,
+        lng: returnResults.response[0].lng,
+      })
+        localStorage.setItem("coordinates",coordinates)
+    })
+  
+}
 
-
-// API call to pull back all departures at JFK for current day +1
-var requestDepartures = {
-  method: "GET",
-  redirect: "follow",
-};
-
-fetch(AIRLABS_SCHEDULES_DEP_API_URL, requestDepartures)
-  .then((response) => response.json())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-
-//   API call to pull back all arrivals at JFK for current day +1
-var requestArrivals = {
-  method: "GET",
-  redirect: "follow",
-};
-
-fetch(AIRLABS_SCHEDULES_ARR_API_URL, requestArrivals)
-  .then((response) => response.json())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
 
 // API call to pull back weather information; lat,long stored in local store.
-var localWeatherJSON = localStorage.getItem("coordinates");
-var localWeather = JSON.parse(localWeatherJSON);
-const WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
-const WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
-var requestWeather = {
-  method: 'GET',
-  redirect: 'follow',
-};
 
 // function to render flight cards
 function renderFlightInfo() {
-  for (i = 0; i <= numberOfFlights; i++) {
+  $('#departureContainer').append(`<h6 class="flightsHeader">Departures</h6>`)
+  $('#arrivalContainer').append(`<h6 class="flightsHeader">Arrivals</h6>`)
+  for (var i = 0; i <= numberOfFlights; i++) {
       //Render Departure Flights.
     $('#departureContainer').append(`
       <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0">
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
-                    <h6 class="card-title flightText">Destination: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
+                    <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
                     <h6 class="card-title flightText">Flight: <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
@@ -114,7 +86,7 @@ function renderFlightInfo() {
                     <h6 class="card-title flightText">Flight Duration: <span id="departureDuration${i}"></span></h6>
               </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <div id = "departureDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
                     <h6 id="departureStatus${i}">[On Time]</h6>
             </div>
           </div>
@@ -125,7 +97,8 @@ function renderFlightInfo() {
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
-                    <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Arrival: <span id="arrivalTo${i}"></span></h6>
+                    <h6 class="card-title flightText">Departure: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
                     <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
@@ -134,7 +107,7 @@ function renderFlightInfo() {
                     <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
                 </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <div id = "arrivalDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
                 <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
             </div>
           </div>
@@ -157,6 +130,7 @@ function getDepartures() {
       console.log(returnResults)
 
       for (var i = 0; i <= numberOfFlights; i++) {
+          $("#departureFrom" + (i)).html(selectedAirport.slice(1))
           $("#departureTitle" + (i)).html(returnResults.response[i].arr_iata)
           $("#departureFlightName" + (i)).html(returnResults.response[i].flight_iata)
           $("#departureSchTime" + (i)).html(returnResults.response[i].dep_time)
@@ -164,11 +138,12 @@ function getDepartures() {
           $("#departureTerminal" + (i)).html(returnResults.response[i].dep_terminal)
           $("#departureGate" + (i)).html(returnResults.response[i].dep_gate)
           $("#departureDuration" + (i)).html(returnResults.response[i].duration + " Minutes")
-        //this logic is not working
           if (returnResults.response[i].delayed === null) {
-            $("#departureStatus"+(i)).html("On Time").attr("class","ontime")
+            $("#departureStatus" + (i)).html("On Time").attr("class", "ontimeText")
+            $("#departureDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center ontimeCont")
           } else {
-            $("#departureStatus"+(i)).html("Delayed by: " + returnResults.response[i].delayed + " Mins").attr("class", "delayed")
+            $("#departureStatus" + (i)).html("Delayed by: " + returnResults.response[i].delayed + " Mins").attr("class", "delayedText")
+            $("#departureDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center delayedCont")
           }
         } 
     })
@@ -187,6 +162,7 @@ function getArrivals() {
     .then(function (returnResults) {
       console.log(returnResults)
       for (var i = 0; i <= numberOfFlights; i++) {
+        $("#arrivalTo" + (i)).html(selectedAirport.slice(1))
         $("#arrivalTitle" + (i)).html(returnResults.response[i].dep_iata)
         $("#arrivalFlightName" + (i)).html(returnResults.response[i].flight_iata)
         $("#arrivalDepartedTime" + (i)).html(returnResults.response[i].dep_time)
@@ -195,15 +171,19 @@ function getArrivals() {
         $("#arrivalGate" + (i)).html(returnResults.response[i].arr_gate)
         $("#arrivalFlightStatus" + (i)).html(returnResults.response[i].status)
         if (returnResults.response[i].arr_delayed === null) {
-          $("#arrivalDelayStatus" + (i)).html("On Time").attr("class", "ontime")
+          $("#arrivalDelayStatus" + (i)).html("On Time").attr("class", "ontimeText")
+          $("#arrivalDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center ontimeCont")
+
         } else {
-          $("#arrivalDelayStatus" + (i)).html("Delayed by: " + returnResults.response[i].dep_delayed + " Mins").attr("class", "delayed")
+          $("#arrivalDelayStatus" + (i)).html("Delayed by: " + returnResults.response[i].dep_delayed + " Mins").attr("class", "delayedText")
+          $("#arrivalDelayStatusCont"+(i)).attr("class", "col-md-3 d-flex align-items-center justify-content-center delayedCont")
         }
       }
     })
 }
 //Function to render the weather data to the page. 
 function getWeather() {
+
   fetch(WEATHER_API_URL)
     .then(function (response) {
       if (!response.ok) {
@@ -223,10 +203,45 @@ function getWeather() {
     })
 }
 
+function init() {
+  $('#arrivalContainer').html("")
+  $('#departureContainer').html("")
+  console.log(selectedAirport)
+  console.log(airportFullName)
+  getAirportInfo()
+  renderFlightInfo()
+  getDepartures()
+  getArrivals()
+  getWeather()
+}
 
-renderFlightInfo()
-getWeather()
-getDepartures()
-getArrivals()
-console.log(AIRLABS_SCHEDULES_ARR_API_URL)
+$("#btnInit").click(function () {
+  selectedAirport = $("#airportSelectForm option:selected").val()
+  airportFullName = $("#airportSelectForm option:selected").text()
+  icao_code = selectedAirport
+  dep_icao = selectedAirport
+  arr_icao = selectedAirport
+  let AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
+AIRLABS_AIRPORT_API_URL =
+  "https://airlabs.co/api/v9/airports?icao_code=" +
+  icao_code +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+AIRLABS_SCHEDULES_DEP_API_URL =
+  "https://airlabs.co/api/v9/schedules?dep_icao=" +
+  dep_icao +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+AIRLABS_SCHEDULES_ARR_API_URL =
+  "https://airlabs.co/api/v9/schedules?arr_icao=" +
+  arr_icao +
+  "&api_key=" +
+  AIRLABS_API_KEY;
+localWeatherJSON = localStorage.getItem("coordinates");
+localWeather = JSON.parse(localWeatherJSON);
+WEATHER_API_KEY = '1bc692c8904a4be88cf05232220411';
+WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json?key=" + WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
+  
+  init()
+});
 
