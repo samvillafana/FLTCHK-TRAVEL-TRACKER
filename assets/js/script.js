@@ -82,9 +82,9 @@ function renderFlightInfo() {
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
                     
+                    <h6 class="card-title flightText"><img id ="departureAirlineIcon${i}"> <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
                     <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
-                    <h6 class="card-title flightText"><img id ="departureAirlineIcon${i}"> <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
                     <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
@@ -103,9 +103,9 @@ function renderFlightInfo() {
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
+                    <h6 class="card-title flightText"><img id ="arrivalAirlineIcon${i}"> <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Arrival: <span id="arrivalTo${i}"></span></h6>
                     <h6 class="card-title flightText">Departure: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
-                    <h6 class="card-title flightText"><img id ="arrivalAirlineIcon${i}"> <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
                     <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
