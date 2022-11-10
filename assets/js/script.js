@@ -39,6 +39,9 @@ let AIRLABS_SCHEDULES_ARR_API_URL =
 
 
 var airportData;
+console.log(AIRLABS_AIRPORT_API_URL)
+console.log(AIRLABS_SCHEDULES_ARR_API_URL)
+console.log(AIRLABS_SCHEDULES_DEP_API_URL)
 
 function getAirportInfo() {
   fetch(AIRLABS_AIRPORT_API_URL)
@@ -69,16 +72,19 @@ function getAirportInfo() {
 function renderFlightInfo() {
   $('#departureContainer').append(`<h6 class="flightsHeader">Departures</h6>`)
   $('#arrivalContainer').append(`<h6 class="flightsHeader">Arrivals</h6>`)
+  
   for (var i = 0; i <= numberOfFlights; i++) {
+    
       //Render Departure Flights.
     $('#departureContainer').append(`
       <div class="card flightCardCustom" style="width: 100%;">
           <div class="row g-0">
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
+                    
                     <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
                     <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Flight: <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText"><img id ="departureAirlineIcon${i}"> <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
                     <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
@@ -99,7 +105,7 @@ function renderFlightInfo() {
                 <div class="card-body">
                     <h6 class="card-title flightText">Arrival: <span id="arrivalTo${i}"></span></h6>
                     <h6 class="card-title flightText">Departure: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText"><img id ="arrivalAirlineIcon${i}"> <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
                     <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
@@ -130,6 +136,7 @@ function getDepartures() {
       console.log(returnResults)
 
       for (var i = 0; i <= numberOfFlights; i++) {
+        $("#departureAirlineIcon" + (i)).attr("src", "https://tracker.flightview.com/FVAccess3/res/img/FlightFinder/AirlineLogo/" + returnResults.response[i].airline_iata + ".gif")
           $("#departureFrom" + (i)).html(selectedAirport.slice(1))
           $("#departureTitle" + (i)).html(returnResults.response[i].arr_iata)
           $("#departureFlightName" + (i)).html(returnResults.response[i].flight_iata)
@@ -162,6 +169,7 @@ function getArrivals() {
     .then(function (returnResults) {
       console.log(returnResults)
       for (var i = 0; i <= numberOfFlights; i++) {
+        $("#arrivalAirlineIcon" + (i)).attr("src", "https://tracker.flightview.com/FVAccess3/res/img/FlightFinder/AirlineLogo/" + returnResults.response[i].airline_iata + ".gif")
         $("#arrivalTo" + (i)).html(selectedAirport.slice(1))
         $("#arrivalTitle" + (i)).html(returnResults.response[i].dep_iata)
         $("#arrivalFlightName" + (i)).html(returnResults.response[i].flight_iata)
