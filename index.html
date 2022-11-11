@@ -5,51 +5,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JFK Travel Tracker</title>
+    <title>FLTCKR Status Checker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://kit.fontawesome.com/3b4616655d.js" crossorigin="anonymous"></script>
 
 </head>
 
-<body onload="init()">
+<body>
 <!-- header container holding logo title and weather  -->
+
 <header class="container headerContainer d-flex">
-    <div class="row">
-        <!-- logo and header  -->
-        <div class="container d-flex bg-white col-7 align-items-center">
-            <a class="" href="#">
-                <img src="./assets/images/FLTCK Travel Tracker-1 (2).png" width="200" height="200" alt="">
-            </a>
-            <h3>JFK International Airport(New York)-JFK Current Weather</h3>
-        </div>
-        <!-- weather container need to link to the api -->
-        <div class="container col-5 ">
-                <div id = "weatherContainer" class="container" >
-                    <div class="card mb-3" >
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img" alt="Current Weather conditions icon">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5><span id = "WeatherTitleEl">[Day]</span></h4>
-                              <h5 class="card-title"><span id="dateWeather">[date]</span></h4>
-                              <hr>
-                              <h6>Temperature: <span id = "tempWeather">[temp]</span></h5>
-                              <h6>Humidity: <span id = "humidityWeather">[humidity]</span></h5>
-                              <h6>Wind Speed: <span id = "windWeather">[wind]</span></h5>
-                              <p class="card-text">Conditions: <span id = "conditionsWeather"></span></p>
-                              <span class = "text-mute" id = timeWeather></span>
-                            </div>
+    <nav class="navbar bg-dark container rounded">
+        <div class="row">
+        <!-- <div class="container d-flex col-7 align-items-center ms-auto">  -->
+            <div class="col-sm-6 col-12">
+            <img class="w-75 h-75 img-fluid d-block" src="./assets/images/FLTCKR Tracker Transparent Background.png" width="200" height="200" alt="Picture of FLTCKR logo"/> 
+           
+          
+            </div>
+        <div id="weatherContainer" class="col-sm-6 col-12">
+            <h1 class="">Status Checker and Weather Application</h1>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img"
+                            alt="Current Weather conditions icon">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h6><span id="WeatherTitleEl">[Day]</span></h6>
+                            <h6 class="card-title"><span id="dateWeather">[date]</span></h6>
+                            <hr>
+                            <h6><i class="fa-solid fa-thermometer pr-2"></i>Temperature: <span id="tempWeather">[temp]</span></h6>
+                            <h6><i class="fa-solid fa-water pr-2"></i>Humidity: <span id="humidityWeather">[humidity]</span></h6>
+                       
+                            <h6><i class="fa-solid fa-wind pr-2"></i>Wind Speed: <span id="windWeather">[wind]</span></h6>
+                            <p class="card-text">Conditions: <span id="conditionsWeather"></span></p>
+                            <span class="text-mute" id="timeWeather"></span>
                         </div>
                     </div>
-                </div>  
-        </div>
+                </div>
+            </div>
+       </div>
     </div>
-</header>
-
-<div class="container">
+    </nav>
+ </header>
+    
+ <div class="container">
     <select id="airportSelectForm"  class="form-select" aria-label="Default select example">
       <option value="KJFK">(JFK) John F. Kennedy International Airport, New York, New York </option>
       <option value="KATL">(ATL) Hartsfield-Jackson Atlanta International Airport, Atlanta, Georgia</option>
@@ -66,80 +70,70 @@
     <button id="btnInit" type="submit" button class="btn btn-light">Let's Go!</button>
     </div>
   
- 
+    
 <div id="flightStatusContainer" class="fs-cont container d-flex">
     <!--  -->
     <!-- Departures Container -->
     <!--  -->
-    <div id = departureContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
+    <div id = "departureContainer" class="fs-cont container col-6 justify-content-start d-flex flex-column">
         <h6 class="flightsHeader">Departures</h6>
         <!-- We will use javascript to populate these containers  -->
 
-<!-- 
+                <!-- 
 ////////////
   Sample html for departures card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
 /////////////
 -->
-<!-- <div class="card flightCardCustom" style="width: 100%;">
-  <div class="row g-0">
-    <div class="col-md-9 flightInfoCustom ">
-      <div class="card-body">
-            <h6 class="card-title flightText">Destination: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
-            <h6 class="card-title flightText">Flight: <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
-            <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
-            <h6 class="card-title flightText">Destination Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
-            <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
-            <h6 class="card-title flightText">Gate: <span id="departureGate${i}">[Gate #]</span></h6>
-            <h6 class="card-title flightText">Flight Duration: <span id="departureDuration${i}"></span></h6>
-      </div>
-    </div>
-    <div id = "departureDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
-            <h6 id="departureStatus${i}">[On Time]</h6>
-    </div>
-  </div>
-</div> -->
 
-    </div>
+        
 
-    <!--  -->
-    <!-- Arrivals Container  -->
-    <!--  -->
-    <div id = arrivalContainer class="fs-cont container col-6 justify-content-start d-flex flex-column">
-        <h6 class="flightsHeader">Arrivals</h6>
-        <!-- We will use javascript to populate these containers  -->
+            </div>
 
-<!-- 
+            <!--  -->
+            <!-- Arrivals Container  -->
+            <!--  -->
+            <div id="arrivalContainer" class="fs-cont container col-6 justify-content-start d-flex flex-column">
+                <h6 class="flightsHeader">Arrivals</h6>
+                <!-- We will use javascript to populate these containers  -->
+
+                <!-- 
 ////////////
   Sample html for arrivals card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
 /////////////
 -->
-<!-- <div class="card flightCardCustom" style="width: 100%;">
-  <div class="row g-0 flightCard">
-    <div class="col-md-9 flightInfoCustom">
-        <div class="card-body">
-            <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
-            <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
-            <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
-            <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
-            <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
-            <h6 class="card-title flightText">Gate: <span id="arrivalGate${i}">[Gate #]</span></h6>
-            <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
+        <!-- <div class="card flightCardCustom" style="width: 100%;">
+          <div class="row g-0 flightCard">
+            <div class="col-md-9 flightInfoCustom">
+                <div class="card-body">
+                    <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
+                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
+                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
+                    <h6 class="card-title flightText">Gate: <span id="arrivalGate${i}">[Gate #]</span></h6>
+                    <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
+            </div>
+          </div>
+      </div> -->
+
+
+            </div>
         </div>
-    </div>
-    <div id = "arrivalDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
-        <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
-    </div>
-  </div>
-</div>      -->
 
-
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+            integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+        <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
