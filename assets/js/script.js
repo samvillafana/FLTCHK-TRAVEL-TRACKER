@@ -334,4 +334,6 @@ $("#btnInit").click(function () {
     "," +
     localWeather.lng +
     "&aqi=no";
+
+    init();
 });
