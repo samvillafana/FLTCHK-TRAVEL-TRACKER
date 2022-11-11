@@ -65,6 +65,19 @@ let WEATHER_API_URL =
 
 var airportData;
 
+function pageLoad() {
+  $("#arrivalContainer").html("");
+  $("#departureContainer").html("");
+  getAirportInfo();
+  getWeatherInit();
+  renderFlightInfo();
+  getDepartures();
+  getArrivals();
+  const reloadUsingLocationHash = () => {
+     window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
+}
 function init() {
   $("#arrivalContainer").html("");
   $("#departureContainer").html("");
@@ -73,6 +86,10 @@ function init() {
   renderFlightInfo();
   getDepartures();
   getArrivals();
+  const reloadUsingLocationHash = () => {
+     window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
 }
 
 function getAirportInfo() {
