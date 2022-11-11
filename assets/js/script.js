@@ -3,25 +3,14 @@ var dayNow = moment().format("dddd");
 var dateNow = moment().format("L");
 var numberOfFlights = 20;
 var selectedAirportIcao = $("#airportSelectForm option:selected").val();
-var selectedAirportIata = $("#airportSelectForm option:selected").val().slice(1);
+var selectedAirportIata = $("#airportSelectForm option:selected")
+  .val()
+  .slice(1);
 var airportFullName = $("#airportSelectForm option:selected").text();
 
 // Render day of the week to weather card
 var dayNow = moment().format("dddd");
 $("#WeatherTitleEl").html(dayNow);
-
-// weather API Variables
-var localWeatherJSON = localStorage.getItem("coordinates");
-var localWeather = JSON.parse(localWeatherJSON);
-let WEATHER_API_KEY = "1bc692c8904a4be88cf05232220411";
-let WEATHER_API_URL =
-  "https://api.weatherapi.com/v1/current.json?key=" +
-  WEATHER_API_KEY +
-  "&q=" +
-  localWeather.lat +
-  "," +
-  localWeather.lng +
-  "&aqi=no";
 
 // airlabs API variables
 let icao_code = selectedAirportIcao;
@@ -35,6 +24,36 @@ let AIRLABS_AIRPORT_API_URL =
   icao_code +
   "&api_key=" +
   AIRLABS_API_KEY;
+let AVIATION_SCHEDULES_DEP_API_URL =
+"https://aviation-edge.com/v2/public/timetable?key=" +
+AVIATION_API_KEY +
+"&iataCode=" +
+selectedAirportIata +
+"&type=departure&status=scheduled";
+let AIRLABS_SCHEDULES_ARR_API_URL =
+"https://airlabs.co/api/v9/schedules?arr_icao=" +
+arr_icao +
+"&api_key=" +
+AIRLABS_API_KEY;
+
+// weather API Variables
+var localWeatherJSON = localStorage.getItem("coordinates");
+var localWeather = JSON.parse(localWeatherJSON);
+let WEATHER_API_KEY = "1bc692c8904a4be88cf05232220411";
+let WEATHER_API_URL_INIT =
+  "https://api.weatherapi.com/v1/current.json?key=" +
+  WEATHER_API_KEY +
+  "&q=41.061,-73.5429&aqi=no";
+let WEATHER_API_URL =
+  "https://api.weatherapi.com/v1/current.json?key=" +
+  WEATHER_API_KEY +
+  "&q=" +
+  localWeather.lat +
+  "," +
+  localWeather.lng +
+  "&aqi=no";
+
+
 
 // let AIRLABS_SCHEDULES_DEP_API_URL =
 //   "https://airlabs.co/api/v9/schedules?dep_icao=" +
@@ -42,23 +61,19 @@ let AIRLABS_AIRPORT_API_URL =
 //   "&api_key=" +
 //   AIRLABS_API_KEY;
 
-let AVIATION_SCHEDULES_DEP_API_URL =
-  "https://aviation-edge.com/v2/public/timetable?key=" +
-  AVIATION_API_KEY +
-  "&iataCode=" +
-  selectedAirportIata +
-  "&type=departure&status=scheduled";
 
-let AIRLABS_SCHEDULES_ARR_API_URL =
-  "https://airlabs.co/api/v9/schedules?arr_icao=" +
-  arr_icao +
-  "&api_key=" +
-  AIRLABS_API_KEY;
 
 var airportData;
-console.log(AIRLABS_AIRPORT_API_URL);
-console.log(AIRLABS_SCHEDULES_ARR_API_URL);
-console.log(AVIATION_SCHEDULES_DEP_API_URL);
+
+function init() {
+  $("#arrivalContainer").html("");
+  $("#departureContainer").html("");
+  getAirportInfo();
+  getWeatherInit();
+  renderFlightInfo();
+  getDepartures();
+  getArrivals();
+}
 
 function getAirportInfo() {
   fetch(AIRLABS_AIRPORT_API_URL)
@@ -259,17 +274,29 @@ function getWeather() {
       $("#conditionsWeather").html(returnResults.current.condition.text);
     });
 }
-
-function init() {
-  $("#arrivalContainer").html("");
-  $("#departureContainer").html("");
-  console.log(selectedAirportIcao);
-  console.log(airportFullName);
-  getAirportInfo();
-  renderFlightInfo();
-  getDepartures();
-  getArrivals();
-  getWeather();
+//Function to render the weather data to the page on init.
+function getWeatherInit() {
+  fetch(WEATHER_API_URL_INIT)
+    .then(function (response) {
+      if (!response.ok) {
+        console.error("");
+        throw response.json();
+      }
+      return response.json();
+    })
+    .then(function (returnResults) {
+      $("#imgWeather").attr(
+        "src",
+        "https:" + returnResults.current.condition.icon
+      );
+      $("#dateWeather").html(returnResults.location.localtime);
+      $("#tempWeather").html(returnResults.current.temp_f.toFixed() + "°F");
+      $("#humidityWeather").html(
+        returnResults.current.humidity.toFixed() + "%"
+      );
+      $("#windWeather").html(returnResults.current.wind_mph.toFixed() + "mph");
+      $("#conditionsWeather").html(returnResults.current.condition.text);
+    });
 }
 
 $("#btnInit").click(function () {
@@ -278,17 +305,19 @@ $("#btnInit").click(function () {
   icao_code = selectedAirportIcao;
   dep_icao = selectedAirportIcao;
   arr_icao = selectedAirportIcao;
+  AVIATION_API_KEY = "9f80e7-64a740";
   AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
   AIRLABS_AIRPORT_API_URL =
     "https://airlabs.co/api/v9/airports?icao_code=" +
     icao_code +
     "&api_key=" +
     AIRLABS_API_KEY;
-  AIRLABS_SCHEDULES_DEP_API_URL =
-    "https://airlabs.co/api/v9/schedules?dep_icao=" +
-    dep_icao +
-    "&api_key=" +
-    AIRLABS_API_KEY;
+  AVIATION_SCHEDULES_DEP_API_URL =
+    "https://aviation-edge.com/v2/public/timetable?key=" +
+    AVIATION_API_KEY +
+    "&iataCode=" +
+    selectedAirportIata +
+    "&type=departure&status=scheduled";
   AIRLABS_SCHEDULES_ARR_API_URL =
     "https://airlabs.co/api/v9/schedules?arr_icao=" +
     arr_icao +
@@ -305,6 +334,4 @@ $("#btnInit").click(function () {
     "," +
     localWeather.lng +
     "&aqi=no";
-
-  init();
 });
