@@ -261,6 +261,12 @@ function getWeather() {
 }
 
 function init() {
+  coordinates = JSON.stringify("coordinates", {
+    "lat": 73.7781,
+    "lng": 40.6413
+    
+})
+  localStorage.setItem("coordinates" , coordinates)
   $("#arrivalContainer").html("");
   $("#departureContainer").html("");
   console.log(selectedAirportIcao);
@@ -273,6 +279,7 @@ function init() {
 }
 
 $("#btnInit").click(function () {
+
   selectedAirportIcao = $("#airportSelectForm option:selected").val();
   airportFullName = $("#airportSelectForm option:selected").text();
   icao_code = selectedAirportIcao;
