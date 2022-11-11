@@ -224,7 +224,7 @@ function getArrivals() {
         } else {
           $("#arrivalDelayStatus" + i)
             .html(
-              "Delayed by: " + returnResults.response[i].dep_delayed + " Mins"
+              "Delayed by: " + returnResults.response[i].arr_delayed + " Mins"
             )
             .attr("class", "delayedText");
           $("#arrivalDelayStatusCont" + i).attr(
