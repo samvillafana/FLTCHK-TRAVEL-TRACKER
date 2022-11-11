@@ -40,10 +40,6 @@ let AIRLABS_SCHEDULES_ARR_API_URL =
 var localWeatherJSON = localStorage.getItem("coordinates");
 var localWeather = JSON.parse(localWeatherJSON);
 let WEATHER_API_KEY = "1bc692c8904a4be88cf05232220411";
-let WEATHER_API_URL_INIT =
-  "https://api.weatherapi.com/v1/current.json?key=" +
-  WEATHER_API_KEY +
-  "&q=41.061,-73.5429&aqi=no";
 
 
 // let AIRLABS_SCHEDULES_DEP_API_URL =
@@ -71,7 +67,7 @@ function init() {
   $("#arrivalContainer").html("");
   $("#departureContainer").html("");
   getAirportInfo();
-  getWeatherInit();
+  getWeather();
   renderFlightInfo();
   getDepartures();
   getArrivals();
@@ -252,6 +248,37 @@ function getArrivals() {
       }
     });
 }
+
+//Function to render the weather data to the page on init.
+function getWeatherInit() {
+  let WEATHER_API_URL_INIT =
+  "https://api.weatherapi.com/v1/current.json?key=" +
+  WEATHER_API_KEY +
+  "&q=41.061,-73.5429&aqi=no";
+
+  fetch(WEATHER_API_URL_INIT)
+    .then(function (response) {
+      if (!response.ok) {
+        console.error("");
+        throw response.json();
+      }
+      return response.json();
+    })
+    .then(function (returnResults) {
+      $("#imgWeather").attr(
+        "src",
+        "https:" + returnResults.current.condition.icon
+      );
+      $("#dateWeather").html(returnResults.location.localtime);
+      $("#tempWeather").html(returnResults.current.temp_f.toFixed() + "°F");
+      $("#humidityWeather").html(
+        returnResults.current.humidity.toFixed() + "%"
+      );
+      $("#windWeather").html(returnResults.current.wind_mph.toFixed() + "mph");
+      $("#conditionsWeather").html(returnResults.current.condition.text);
+    });
+};
+
 //Function to render the weather data to the page.
 function getWeather() {
   let WEATHER_API_URL =
@@ -284,30 +311,7 @@ function getWeather() {
       $("#conditionsWeather").html(returnResults.current.condition.text);
     });
 }
-//Function to render the weather data to the page on init.
-function getWeatherInit() {
-  fetch(WEATHER_API_URL_INIT)
-    .then(function (response) {
-      if (!response.ok) {
-        console.error("");
-        throw response.json();
-      }
-      return response.json();
-    })
-    .then(function (returnResults) {
-      $("#imgWeather").attr(
-        "src",
-        "https:" + returnResults.current.condition.icon
-      );
-      $("#dateWeather").html(returnResults.location.localtime);
-      $("#tempWeather").html(returnResults.current.temp_f.toFixed() + "°F");
-      $("#humidityWeather").html(
-        returnResults.current.humidity.toFixed() + "%"
-      );
-      $("#windWeather").html(returnResults.current.wind_mph.toFixed() + "mph");
-      $("#conditionsWeather").html(returnResults.current.condition.text);
-    });
-}
+
 
 $("#btnInit").click(function () {
   selectedAirportIcao = $("#airportSelectForm option:selected").val();
@@ -315,6 +319,7 @@ $("#btnInit").click(function () {
   icao_code = selectedAirportIcao;
   dep_icao = selectedAirportIcao;
   arr_icao = selectedAirportIcao;
+  dep_iata = selectedAirportIata;
   AVIATION_API_KEY = "9f80e7-64a740";
   AIRLABS_API_KEY = "4126101b-5b8e-49b5-b65a-a7a54ac5914b";
   AIRLABS_AIRPORT_API_URL =
@@ -338,12 +343,7 @@ $("#btnInit").click(function () {
   WEATHER_API_KEY = "1bc692c8904a4be88cf05232220411";
   WEATHER_API_URL =
     "https://api.weatherapi.com/v1/current.json?key=" +
-    WEATHER_API_KEY +
-    "&q=" +
-    localWeather.lat +
-    "," +
-    localWeather.lng +
-    "&aqi=no";
+    WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
   init();
 });
