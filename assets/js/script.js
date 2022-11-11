@@ -25,16 +25,16 @@ let AIRLABS_AIRPORT_API_URL =
   "&api_key=" +
   AIRLABS_API_KEY;
 let AVIATION_SCHEDULES_DEP_API_URL =
-"https://aviation-edge.com/v2/public/timetable?key=" +
-AVIATION_API_KEY +
-"&iataCode=" +
-selectedAirportIata +
-"&type=departure&status=scheduled";
+  "https://aviation-edge.com/v2/public/timetable?key=" +
+  AVIATION_API_KEY +
+  "&iataCode=" +
+  selectedAirportIata +
+  "&type=departure&status=scheduled";
 let AIRLABS_SCHEDULES_ARR_API_URL =
-"https://airlabs.co/api/v9/schedules?arr_icao=" +
-arr_icao +
-"&api_key=" +
-AIRLABS_API_KEY;
+  "https://airlabs.co/api/v9/schedules?arr_icao=" +
+  arr_icao +
+  "&api_key=" +
+  AIRLABS_API_KEY;
 
 // weather API Variables
 var localWeatherJSON = localStorage.getItem("coordinates");
@@ -44,15 +44,6 @@ let WEATHER_API_URL_INIT =
   "https://api.weatherapi.com/v1/current.json?key=" +
   WEATHER_API_KEY +
   "&q=41.061,-73.5429&aqi=no";
-let WEATHER_API_URL =
-  "https://api.weatherapi.com/v1/current.json?key=" +
-  WEATHER_API_KEY +
-  "&q=" +
-  localWeather.lat +
-  "," +
-  localWeather.lng +
-  "&aqi=no";
-
 
 
 // let AIRLABS_SCHEDULES_DEP_API_URL =
@@ -60,8 +51,6 @@ let WEATHER_API_URL =
 //   dep_icao +
 //   "&api_key=" +
 //   AIRLABS_API_KEY;
-
-
 
 var airportData;
 
@@ -73,10 +62,10 @@ function pageLoad() {
   renderFlightInfo();
   getDepartures();
   getArrivals();
-  const reloadUsingLocationHash = () => {
-     window.location.hash = "reload";
-    }
-    window.onload = reloadUsingLocationHash();
+  var reloadUsingLocationHash = () => {
+    window.location.hash = "reload";
+  };
+  window.onload = reloadUsingLocationHash();
 }
 function init() {
   $("#arrivalContainer").html("");
@@ -86,10 +75,6 @@ function init() {
   renderFlightInfo();
   getDepartures();
   getArrivals();
-  const reloadUsingLocationHash = () => {
-     window.location.hash = "reload";
-    }
-    window.onload = reloadUsingLocationHash();
 }
 
 function getAirportInfo() {
@@ -269,6 +254,14 @@ function getArrivals() {
 }
 //Function to render the weather data to the page.
 function getWeather() {
+  let WEATHER_API_URL =
+  "https://api.weatherapi.com/v1/current.json?key=" +
+  WEATHER_API_KEY +
+  "&q=" +
+  localWeather.lat +
+  "," +
+  localWeather.lng +
+  "&aqi=no";
   fetch(WEATHER_API_URL)
     .then(function (response) {
       if (!response.ok) {
@@ -352,5 +345,5 @@ $("#btnInit").click(function () {
     localWeather.lng +
     "&aqi=no";
 
-    init();
+  init();
 });
