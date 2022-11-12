@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLTCKR Status Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -24,14 +27,14 @@
             <!-- Weather container used to display weather at selected airport -->
         <div id="weatherContainer" class="col-sm-6 col-12">
             <h1 class="">Status Checker and Weather Application</h1>
-            <div class="card mb-3">
+            <div class="card mb-3 weatherContainerEl">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img id="imgWeather" src="https://openweathermap.org/img/wn/10d.png" class="card-img"
                             alt="Current Weather conditions icon">
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
+                    <div class="col-md-8 weatherDataEl">
+                        <div class="card-body ">
                             <h6><span id="WeatherTitleEl">[Day]</span></h6>
                             <h6 class="card-title"><span id="dateWeather">[date]</span></h6>
                             <hr>
@@ -50,7 +53,7 @@
     </nav>
  </header>
     
- <div class="container">
+ <div class="container testcont d-flex justify-content-center">
     <select id="airportSelectForm"  class="form-select" aria-label="Default select example">
       <option value="KJFK">(JFK) John F. Kennedy International Airport, New York, New York </option>
       <option value="KATL">(ATL) Hartsfield-Jackson Atlanta International Airport, Atlanta, Georgia</option>
