@@ -1,9 +1,6 @@
-body {}
-
+/* Custom css added to bootstrap styling */
 .headerContainer {
     background-image: linear-gradient(skyblue, white);
-    /* height: 400px;
-     */
 }
 
 h6 {
@@ -11,9 +8,6 @@ h6 {
     margin: 0;
 }
 
-
-
-/* The span classes will have data populated via api */
 span {
     color: gray;
 }
@@ -55,10 +49,9 @@ span {
 
 .card-body {
     background-color: #fff;
-border-left: 0px;
+    border-left: 0px;
 }
 
-/* We will use these 2 following classes to display flight status. Can be changed in javascript  */
 .ontimeText {
     font-size: 16px;
     font-weight: bolder;
@@ -71,10 +64,10 @@ border-left: 0px;
     color: white;
 }
 .ontimeCont {
-background-color: green ;
-border: radius top right 3px;
+    background-color: green ;
+    border: radius top right 3px;
 }
 
 .delayedCont {
-background-color: red;
+    background-color: red;
 }

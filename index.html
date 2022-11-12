@@ -15,16 +15,13 @@
 
 <body onload="pageLoad()">
 <!-- header container holding logo title and weather  -->
-
 <header class="container headerContainer d-flex">
     <nav class="navbar container rounded">
         <div class="row">
-        <!-- <div class="container d-flex col-7 align-items-center ms-auto">  -->
             <div class="col-sm-6 col-12">
             <img class="w-75 h-75 img-fluid d-block" src="./assets/images/FLTCKR Tracker Transparent Background.png" width="200" height="200" alt="Picture of FLTCKR logo"/> 
-           
-          
             </div>
+            <!-- Weather container used to display weather at selected airport -->
         <div id="weatherContainer" class="col-sm-6 col-12">
             <h1 class="">Status Checker and Weather Application</h1>
             <div class="card mb-3">
@@ -68,61 +65,24 @@
     </select>
   
     <button id="btnInit" type="submit" button class="btn btn-light">Let's Go!</button>
-    </div>
+</div>
   
     
 <div id="flightStatusContainer" class="fs-cont container d-flex">
-    <!--  -->
+
     <!-- Departures Container -->
-    <!--  -->
     <div id = "departureContainer" class="fs-cont container col-6 justify-content-start d-flex flex-column">
+        <!-- Arrival cards javascript is used to populate this container  -->
         <h6 class="flightsHeader">Departures</h6>
-        <!-- We will use javascript to populate these containers  -->
+    </div>
 
-                <!-- 
-////////////
-  Sample html for departures card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
-/////////////
--->
-
-        
-
-            </div>
-
-            <!--  -->
             <!-- Arrivals Container  -->
-            <!--  -->
-            <div id="arrivalContainer" class="fs-cont container col-6 justify-content-start d-flex flex-column">
-                <h6 class="flightsHeader">Arrivals</h6>
-                <!-- We will use javascript to populate these containers  -->
+    <div id="arrivalContainer" class="fs-cont container col-6 justify-content-start d-flex flex-column">
+        <!-- Arrival cards javascript is used to populate this container  -->
+        <h6 class="flightsHeader">Arrivals</h6>
+    </div>
+</div>
 
-                <!-- 
-////////////
-  Sample html for arrivals card (use class names for styling. Add classes if you need but let me know so i can add it to the javascript. Adjusting the ID's will break the script) 
-/////////////
--->
-        <!-- <div class="card flightCardCustom" style="width: 100%;">
-          <div class="row g-0 flightCard">
-            <div class="col-md-9 flightInfoCustom">
-                <div class="card-body">
-                    <h6 class="card-title flightText">Departed From: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Flight: <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
-                    <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
-                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
-                    <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
-                    <h6 class="card-title flightText">Gate: <span id="arrivalGate${i}">[Gate #]</span></h6>
-                    <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
-                <h6 id ="arrivalDelayStatus${i}">[On-Time]</h6>
-            </div>
-          </div>
-      </div> -->
-
-
-            </div>
-        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
             integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
