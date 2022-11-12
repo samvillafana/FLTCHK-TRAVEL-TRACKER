@@ -163,6 +163,8 @@ function getDepartures() {
       console.log(returnResults);
 
       for (var i = 0; i <= numberOfFlights; i++) {
+        let formatDateDepart = moment(returnResults[i].departure.scheduledTime)
+        let formatDateArrival = moment(returnResults[i].arrival.scheduledTime)
         $("#departureAirlineIcon" + i).attr(
           "src",
           "https://tracker.flightview.com/FVAccess3/res/img/FlightFinder/AirlineLogo/" +
@@ -174,9 +176,9 @@ function getDepartures() {
         $("#departureTitle" + i).html(returnResults[i].arrival.iataCode);
         $("#departureFlightName" + i).html(returnResults[i].flight.iataNumber);
         $("#departureSchTime" + i).html(
-          returnResults[i].departure.scheduledTime
+          formatDateDepart.format("l LT")
         );
-        $("#departureArrTime" + i).html(returnResults[i].arrival.scheduledTime);
+        $("#departureArrTime" + i).html(formatDateArrival.format("l LT"));
         $("#departureTerminal" + i).html(returnResults[i].departure.terminal);
         $("#departureGate" + i).html(returnResults[i].departure.gate);
         if (returnResults[i].departure.delay === null) {
