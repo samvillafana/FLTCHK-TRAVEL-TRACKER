@@ -10,7 +10,7 @@ var airportFullName = $("#airportSelectForm option:selected").text();
 
 // Render day of the week to weather card
 var dayNow = moment().format("dddd");
-$("#WeatherTitleEl").html(dayNow);
+
 
 // airlabs API variables
 let icao_code = selectedAirportIcao;
@@ -319,6 +319,10 @@ function getWeather() {
 $("#btnInit").click(function () {
   selectedAirportIcao = $("#airportSelectForm option:selected").val();
   airportFullName = $("#airportSelectForm option:selected").text();
+  var selectedAirportIata = $("#airportSelectForm option:selected")
+  .val()
+  .slice(1);
+  $("#WeatherTitleEl").html(dayNow + " @ " + selectedAirportIata);
   icao_code = selectedAirportIcao;
   dep_icao = selectedAirportIcao;
   arr_icao = selectedAirportIcao;
