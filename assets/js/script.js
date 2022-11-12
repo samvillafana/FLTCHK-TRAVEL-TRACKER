@@ -10,7 +10,7 @@ var airportFullName = $("#airportSelectForm option:selected").text();
 
 // Render day of the week to weather card
 var dayNow = moment().format("dddd");
-$("#WeatherTitleEl").html(dayNow);
+
 
 // airlabs API variables
 let icao_code = selectedAirportIcao;
@@ -63,6 +63,7 @@ function pageLoad() {
   };
   window.onload = reloadUsingLocationHash();
 }
+
 function init() {
   $("#arrivalContainer").html("");
   $("#departureContainer").html("");
@@ -108,14 +109,14 @@ function renderFlightInfo() {
             <div class="col-md-9 flightInfoCustom ">
               <div class="card-body">
                     
-              <h6 class="card-title flightText"><span id="departureAirlineName${i}"></span></h6>
-                    <h6 class="card-title flightText"><img id ="departureAirlineIcon${i}"> <span id="departureFlightName${i}">[Airline - Flight No]</span></h6>
-                    <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
-                    <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Sch Time/Date: <span id="departureSchTime${i}">[time/date]</span></h6>
-                    <h6 class="card-title flightText">Dest Arrival: <span id="departureArrTime${i}">[Time]</span></h6>
-                    <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
-                    <h6 class="card-title flightText">Gate: <span id="departureGate${i}">[Gate #]</span></h6>
+              <h6 class="card-title flightTitle flightText"><img id ="departureAirlineIcon${i}"> <span class="flightSpan" id="departureFlightName${i}">[Airline - Flight No]</span></h6>
+              <h6 class="card-title flightText">Departure: <span id="departureFrom${i}"></span></h6>
+              <h6 class="card-title flightText">Arrival: <span id="departureTitle${i}">[Destination Airport Name]</span></h6>
+              <h6 class="card-title flightText">Depart Time: <span id="departureSchTime${i}">[time/date]</span></h6>
+              <h6 class="card-title flightText">Arrival Time: <span id="departureArrTime${i}">[Time]</span></h6>
+              <h6 class="card-title flightText">Terminal: <span id="departureTerminal${i}">[Terminal]</span></h6>
+              <h6 class="card-title flightText">Gate: <span id="departureGate${i}">[Gate #]</span></h6>
+              <h6 class="card-title flightText">Airline: <span id="departureAirlineName${i}"></span></h6>
               </div>
             </div>
             <div id = "departureDelayStatusCont${i}" class="col-md-3 d-flex align-items-center justify-content-center">
@@ -129,11 +130,11 @@ function renderFlightInfo() {
           <div class="row g-0 flightCard">
             <div class="col-md-9 flightInfoCustom">
                 <div class="card-body">
-                    <h6 class="card-title flightText"><img id ="arrivalAirlineIcon${i}"> <span id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
+                    <h6 class="card-title flightTitle flightText"><img id ="arrivalAirlineIcon${i}"> <span class="flightSpan" id="arrivalFlightName${i}">[Airline - Flight No]</span></h6>
                     <h6 class="card-title flightText">Arrival: <span id="arrivalTo${i}"></span></h6>
                     <h6 class="card-title flightText">Departure: <span id="arrivalTitle${i}">[Departed From Airport Name]</span></h6>
-                    <h6 class="card-title flightText">Departed Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
-                    <h6 class="card-title flightText">Sch.Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Arrival Time: <span id="arrivalSchTime${i}">[estTime]</span></h6>
+                    <h6 class="card-title flightText">Depart Time: <span id="arrivalDepartedTime${i}">[time/date]</span></h6>
                     <h6 class="card-title flightText">Terminal: <span id="arrivalTerminal${i}">[Terminal]</span></h6>
                     <h6 class="card-title flightText">Gate: <span id="arrivalGate${i}">[Gate #]</span></h6>
                     <h6 class="card-title flightText">Flight Status: <span id="arrivalFlightStatus${i}">[Flight Status]</span></h6>
@@ -162,6 +163,8 @@ function getDepartures() {
       console.log(returnResults);
 
       for (var i = 0; i <= numberOfFlights; i++) {
+        let formatDateDepart = moment(returnResults[i].departure.scheduledTime)
+        let formatDateArrival = moment(returnResults[i].arrival.scheduledTime)
         $("#departureAirlineIcon" + i).attr(
           "src",
           "https://tracker.flightview.com/FVAccess3/res/img/FlightFinder/AirlineLogo/" +
@@ -173,9 +176,9 @@ function getDepartures() {
         $("#departureTitle" + i).html(returnResults[i].arrival.iataCode);
         $("#departureFlightName" + i).html(returnResults[i].flight.iataNumber);
         $("#departureSchTime" + i).html(
-          returnResults[i].departure.scheduledTime
+          formatDateDepart.format("l LT")
         );
-        $("#departureArrTime" + i).html(returnResults[i].arrival.scheduledTime);
+        $("#departureArrTime" + i).html(formatDateArrival.format("l LT"));
         $("#departureTerminal" + i).html(returnResults[i].departure.terminal);
         $("#departureGate" + i).html(returnResults[i].departure.gate);
         if (returnResults[i].departure.delay === null) {
@@ -316,6 +319,10 @@ function getWeather() {
 $("#btnInit").click(function () {
   selectedAirportIcao = $("#airportSelectForm option:selected").val();
   airportFullName = $("#airportSelectForm option:selected").text();
+  var selectedAirportIata = $("#airportSelectForm option:selected")
+  .val()
+  .slice(1);
+  $("#WeatherTitleEl").html(dayNow + " @ " + selectedAirportIata);
   icao_code = selectedAirportIcao;
   dep_icao = selectedAirportIcao;
   arr_icao = selectedAirportIcao;

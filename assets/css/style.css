@@ -1,21 +1,33 @@
-body {}
-
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+/* Custom css added to bootstrap styling */
 .headerContainer {
-    background-image: linear-gradient(skyblue, white);
-    /* height: 400px;
-     */
+    background-image: linear-gradient(#72a0c1bd, white);
+    padding-top: 20px;
 }
-
+.weatherContainerEl{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+h1{
+    /* font-weight: 500;
+    text-transform: uppercase; */
+}
 h6 {
-    line-height: 1;
+    line-height: 1.25;
     margin: 0;
+    color:black;
 }
 
-
-
-/* The span classes will have data populated via api */
 span {
-    color: gray;
+    color: grey;
+    line-height: 1.25;
+}
+
+#WeatherTitleEl, #dateWeather {
+    text-transform: uppercase;
+    color: black;
 }
 
 #flightStatusContainer {
@@ -25,7 +37,8 @@ span {
 
 .flightCardCustom {
     margin: 2px;
-    
+    border-radius: 10px;
+    box-shadow: 0px 0px 13px 4px rgba(0,0,0,0.11);
 
 }
 
@@ -47,34 +60,86 @@ span {
 }
 
 .flightsHeader {
+    box-shadow: 0px 0px 13px 4px rgba(0,0,0,0.11);
     font-size: 20px;
-    color: black;
-    margin: 5px;
+    color:black;
+    margin: 20px;
+    text-align: center;
+    text-shadow: 0px 0px 28px rgba(0,0,0,0.34);
+    border-top: 1px solid #72a0c149;
+    border-bottom: 1px solid #72a0c149;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 
 .card-body {
-    background-color: #fff;
-border-left: 0px;
+    border-left: 0px;
 }
 
-/* We will use these 2 following classes to display flight status. Can be changed in javascript  */
 .ontimeText {
     font-size: 16px;
     font-weight: bolder;
     color: white;
+    text-transform: uppercase;
 }
 
 .delayedText {
     font-size: 16px;
     font-weight: bolder;
     color: white;
+    text-transform: uppercase;
 }
 .ontimeCont {
-background-color: green ;
-border: radius top right 3px;
+    background-color: #568203;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .delayedCont {
-background-color: red;
+    background-color: #BC3F4A;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
+
+.flightTitle {
+    margin-bottom: 4px;
+    font-size: 15px;
+    text-align: center;
+    
+  }
+  .flightSpan {
+    color: black;
+    
+  }
+
+
+.testcont {
+}
+  .testcont button {
+    background-color: #72a0c18e;
+    color: white;
+    margin-left: 5px;
+    box-shadow: 0px 0px 13px 4px rgba(0,0,0,0.11);
+    border: none;
+    border-radius: 10px;
+  }
+  .testcont select {
+    max-width: 80%;
+    border-radius: 10px;
+    background-color: #72a0c18e;
+    color: white;
+    padding: 12px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0px 0px 13px 4px rgba(0,0,0,0.11);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  .testcont select option {
+    padding: 30px;
+}
+
+
+
