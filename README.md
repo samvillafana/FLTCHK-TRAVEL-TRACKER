@@ -14,7 +14,7 @@ We utilized 3 API's from aviationstack.com, airlabs.com, weatherapi.com. From ai
 
 ## 🔗 Links
 
-[Deployed Application](https://samvillafana.github.io/JFK-TRAVEL-CHECKER/#reload)
+[Deployed Application](https://samvillafana.github.io/FLTCHK-TRAVEL-TRACKER/#reload)
 
 
 ## 📸 Screenshot
