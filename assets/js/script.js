@@ -3,13 +3,39 @@ var dayNow = moment().format("dddd");
 var dateNow = moment().format("L");
 var numberOfFlights = 20;
 var selectedAirportIcao = $("#airportSelectForm option:selected").val();
-var selectedAirportIata = $("#airportSelectForm option:selected")
-  .val()
-  .slice(1);
+var selectedAirportIata = $("#airportSelectForm option:selected").attr("name")
 var airportFullName = $("#airportSelectForm option:selected").text();
 
+// add custom airport variables 
+
+var savedAirportIcao = JSON.parse(localStorage.getItem("savedICAO")) || [];
+var savedAirportIata = JSON.parse(localStorage.getItem("savedIATA")) || [];
+var savedAirportName = JSON.parse(localStorage.getItem("savedName")) || [];
 // Render day of the week to weather card
 var dayNow = moment().format("dddd");
+
+//Function to add custom airport to the dropdown. 
+function addAirportToDropDown() {
+  if (!savedAirportIcao) {
+      return
+  }
+  //creates a new option in dropdown from data in local storage
+  for (var i = 0; i < savedAirportIcao.length; i++) {
+      $("#airportSelectForm").append(`<option value="${savedAirportIcao[i]}" name="${savedAirportIata[i]}">(${savedAirportIata[i]}) ${savedAirportName[i]}</option>`)
+  }
+}
+
+function saveAirportInfo() {
+var formAirportIcao = $("#formAirportIcao").val().toUpperCase()
+var formAirportIata = $("#formAirportIata").val().toUpperCase()
+var formAirportName = $("#formAirportName").val()
+  savedAirportIcao.push(formAirportIcao)
+  savedAirportIata.push(formAirportIata)
+  savedAirportName.push(formAirportName)
+  localStorage.setItem("savedICAO", JSON.stringify(savedAirportIcao))
+  localStorage.setItem("savedIATA", JSON.stringify(savedAirportIata))
+  localStorage.setItem("savedName", JSON.stringify(savedAirportName))  
+}
 
 
 // airlabs API variables
@@ -51,6 +77,7 @@ let WEATHER_API_KEY = "1bc692c8904a4be88cf05232220411";
 var airportData;
 
 function pageLoad() {
+  addAirportToDropDown()
   $("#arrivalContainer").html("");
   $("#departureContainer").html("");
   getAirportInfo();
@@ -319,9 +346,7 @@ function getWeather() {
 $("#btnInit").click(function () {
   selectedAirportIcao = $("#airportSelectForm option:selected").val();
   airportFullName = $("#airportSelectForm option:selected").text();
-  var selectedAirportIata = $("#airportSelectForm option:selected")
-  .val()
-  .slice(1);
+  var selectedAirportIata = $("#airportSelectForm option:selected").attr("name")
   $("#WeatherTitleEl").html(dayNow + " @ " + selectedAirportIata);
   icao_code = selectedAirportIcao;
   dep_icao = selectedAirportIcao;
@@ -353,4 +378,15 @@ $("#btnInit").click(function () {
     WEATHER_API_KEY + "&q=" + localWeather.lat + "," + localWeather.lng + "&aqi=no";
 
   init();
+});
+
+$("#saveAirportInfoBtn").click(function () {
+
+  saveAirportInfo()
+  window.location.reload()
+});
+
+$("#btnClear").click(function () {
+  localStorage.clear()
+  window.location.reload()
 });
