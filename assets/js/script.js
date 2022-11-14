@@ -26,8 +26,8 @@ function addAirportToDropDown() {
 }
 
 function saveAirportInfo() {
-var formAirportIcao = $("#formAirportIcao").val()
-var formAirportIata = $("#formAirportIata").val()
+var formAirportIcao = $("#formAirportIcao").val().toUpperCase()
+var formAirportIata = $("#formAirportIata").val().toUpperCase()
 var formAirportName = $("#formAirportName").val()
   savedAirportIcao.push(formAirportIcao)
   savedAirportIata.push(formAirportIata)
