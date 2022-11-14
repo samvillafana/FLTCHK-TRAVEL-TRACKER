@@ -56,23 +56,27 @@
     
  <div class="container testcont d-flex justify-content-center">
     <select id="airportSelectForm"  class="form-select" aria-label="Default select example">
-      <option value="KJFK">(JFK) John F. Kennedy International Airport, New York, New York </option>
-      <option value="KATL">(ATL) Hartsfield-Jackson Atlanta International Airport, Atlanta, Georgia</option>
-      <option value="KLAX">(LAX) Los Angeles International Airport, Los Angeles California</option>
-      <option value="KORD">(ORD) O'Hare International Airport, Chicago, Illinois</option>
-      <option value="KDFW">(DFW) Dallas/Fort Worth International Airport, Dallas, Texas</option>
-      <option value="KDEN">(DEN) Denver International Airport, Denver, Colorado</option>
-      <option value="KSFO">(SFO) San Francisco International Airport, San Franciso, California</option>
-      <option value="KLAS">(LAS) McCarran International Airport, Las Vegas, Nevada</option>
-      <option value="KSEA">(SEA) Seattle-Tacoma International Airport, Seattle, Washington</option>
-      <option value="KCLT">(CLT) Charlotte Douglas International Airport, Charlotte, North Carolina</option>
+      <option value="KJFK" name="JFK">(JFK) John F. Kennedy International Airport, New York, New York </option>
+      <option value="KATL" name="ATL">(ATL) Hartsfield-Jackson Atlanta International Airport, Atlanta, Georgia</option>
+      <option value="KLAX" name="LAX">(LAX) Los Angeles International Airport, Los Angeles California</option>
+      <option value="KORD" name="ORD">(ORD) O'Hare International Airport, Chicago, Illinois</option>
+      <option value="KDFW" name="DFW">(DFW) Dallas/Fort Worth International Airport, Dallas, Texas</option>
+      <option value="KDEN" name="DEN">(DEN) Denver International Airport, Denver, Colorado</option>
+      <option value="KSFO" name="SFO">(SFO) San Francisco International Airport, San Franciso, California</option>
+      <option value="KLAS" name="LAS">(LAS) McCarran International Airport, Las Vegas, Nevada</option>
+      <option value="KSEA" name="SEA">(SEA) Seattle-Tacoma International Airport, Seattle, Washington</option>
+      <option value="KCLT" name="CLT">(CLT) Charlotte Douglas International Airport, Charlotte, North Carolina</option>
     </select>
   
     <button id="btnInit" type="submit" button class="btn btn-light">Let's Go!</button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Add Airport
-      </button>
 </div>
+<div class=" saveCont container d-flex align-items-center justify-content-center"> 
+    <button id="btnCustom" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    + Custom Airport
+     </button>
+   <button id="btnClear" type="button" class="btn btn-primary">
+       Clear Saved
+   </button></div>
   <!-- Add custom airport modal  -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -102,7 +106,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button id="saveAirportInfoBtn" type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
