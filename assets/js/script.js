@@ -8,6 +8,11 @@ var selectedAirportIata = $("#airportSelectForm option:selected")
   .slice(1);
 var airportFullName = $("#airportSelectForm option:selected").text();
 
+// add custom airport variables 
+var formAirportIcao = $("#formAirportIcao").text()
+var formAirportIata = $("#formAirportIcao").text()
+var formAirportName = $("#formAirportIcao").text()
+
 // Render day of the week to weather card
 var dayNow = moment().format("dddd");
 

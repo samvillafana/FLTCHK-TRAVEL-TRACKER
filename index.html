@@ -69,8 +69,44 @@
     </select>
   
     <button id="btnInit" type="submit" button class="btn btn-light">Let's Go!</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Add Airport
+      </button>
 </div>
-  
+  <!-- Add custom airport modal  -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add an Airport</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <a href="https://en.wikipedia.org/wiki/List_of_airports_by_ICAO_code" target="_blank">View This Wikipedia List to find your airport. Please ensure the IATA and ICAO information is correct.</a>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Airport ICAO-Code</label>
+                  <textarea id= "formAirportIcao"  class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="eg. KJFK"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Airport IATA-Code</label>
+                  <textarea id= "formAirportIata" class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="eg. JFK"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Airport Name</label>
+                  <textarea id= "formAirportName"  class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="eg. John F Kennedy International Airport"></textarea>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
 <div id="flightStatusContainer" class="fs-cont container d-flex">
 
